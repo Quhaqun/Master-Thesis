@@ -1,0 +1,7 @@
+Salzburg.kke.tu-berlin.de
+ip: 141.23.68.158
+debian: hcjE]WE7Rd
+root: eP"mkDb449
+
+cmd 
+ssh debian@salzburg.kke.tu-berlin.de

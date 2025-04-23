@@ -1,0 +1,4 @@
+cd Master-Thesis/build/web
+sudo setsid http-server -p 80 -a 0.0.0.0 -c-1 --index index.html > server.log 2>&1 &
+ps aux | grep http-server 
+sudo kill xxxxxx
