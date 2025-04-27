@@ -1,0 +1,6 @@
+Fragen:
+Send request wenn Robot also es gibt einen flask server?
+Welche Variablen zu ändern?
+Daten müssen verfiziert werden und experiment muss geteste werden.
+Wenn neusttart daten löschen und neu oder weiter schreiben oder immer einzigartig so das nie was gelöscht werden muss?
+War erste veranstaltung koleqium nicht da muss ich darüber was wissen?

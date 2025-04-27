@@ -20,6 +20,82 @@ import asyncio
 from parameters_JointMOT_HCI_HH2 import *
 pygame.init()
 
+import platform
+
+if sys.platform == "emscripten":
+    import io
+    import csv
+    import json
+    import sys
+    import js
+
+    # RequestHandler that works in both local and WASM (browser) environments
+    class RequestHandler:
+        """
+        WASM compatible request handler
+        auto-detects emscripten environment and sends requests using JavaScript Fetch API
+        """
+
+        GET = "GET"
+        POST = "POST"
+        _js_code = ""
+        _init = False
+
+        def __init__(self):
+            self.no_identity = False
+            self.is_emscripten = sys.platform == "emscripten"
+            if not self._init:
+                self.init()
+            self.debug = True
+            self.result = None
+
+            if not self.is_emscripten:
+                try:
+                    import requests
+                    self.requests = requests
+                except ImportError:
+                    pass
+
+        def init(self):
+            if self.is_emscripten:
+                self._js_code = """
+        window.Fetch = {}
+        window.Fetch.POST = function * POST(url, data) {
+            var request = new Request(url, {
+                headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
+                method: 'POST',
+                body: data
+            });
+            var content = 'undefined';
+            fetch(request)
+            .then(resp => resp.text())
+            .then((resp) => {
+                content = resp;
+            })
+            .catch(err => {
+                console.log("Error:", err);
+            });
+            while(content == 'undefined') { yield; }
+            yield content;
+        }
+        """
+                try:
+                    platform.window.eval(self._js_code)
+                except AttributeError:
+                    self.is_emscripten = False
+
+        async def post(self, url, data=None):
+            if data is None:
+                data = {}
+
+            if self.is_emscripten:
+                content = await platform.jsiter(platform.window.Fetch.POST(url, json.dumps(data)))
+                self.result = content
+            else:
+                self.result = self.requests.post(url, json=data, headers={"Accept": "application/json",
+                                                                          "Content-Type": "application/json"}).text
+            return self.result
+
 if PARTNER == "Robot":
     def send_request(number):
         try:
@@ -232,12 +308,31 @@ async def MOT(objects, trial=999, Subnum=999, SUBDIR=999):
         elapsed = time.time() - start
         framedata_collect.append(framedata)
 
-        if trial != 999:
-            csvfile = "Pair%d_%d.csv" % (Subnum,trial)
-            path_frame = SUBDIR + csvfile
-            with open(path_frame, 'w') as f:
-                wr = csv.writer(f)
-                wr.writerows(framedata_collect)
+    if trial != 999:
+        csvfile = "Pair%d_%d.csv" % (Subnum,trial)
+        path_frame = SUBDIR + csvfile
+        with open(path_frame, 'w') as f:
+            wr = csv.writer(f)
+            wr.writerows(framedata_collect)
+
+        if sys.platform == "emscripten":
+            output = RequestHandler()
+            # Define the URL and data for the POST request
+            url = "http://127.0.0.1:5000/submit_trial"
+            writeheader = False
+            # Send the POST request
+            try:
+                message = "test"
+                message = await output.post(url, {
+                    "writeheader": writeheader,
+                    "csvfile": csvfile,
+                    "Subnum": Subnum,
+                    "row": framedata_collect  # `data` is your list of values (header or trial)
+                })
+                print(message)
+            except:
+                print("fail")
+                pass
     #median_pupil = median(pupildata)
     return objects
 
@@ -345,12 +440,50 @@ async def markall(objects, selectionormark, Subnum, trial, SUBDIR, feedback=0):
             wr = csv.writer(f)
             wr.writerows(collect_mousepos)
 
+        if sys.platform == "emscripten":
+            output = RequestHandler()
+            # Define the URL and data for the POST request
+            url = "http://127.0.0.1:5000/submit_trial"
+            writeheader = False
+            # Send the POST request
+            try:
+                message = "test"
+                message = await output.post(url, {
+                    "writeheader" : writeheader,
+                    "csvfile": csvfile,
+                    "Subnum": Subnum,
+                    "row": collect_mousepos  # `data` is your list of values (header or trial)
+                })
+                print(message)
+            except:
+                print("fail")
+                pass
+
     if selectionormark == "markall":
         csvfile = "MposMarkall_Pair%d_%d.csv" % (Subnum,trial)
         path_frame = SUBDIR + csvfile
         with open(path_frame, 'w') as f:
             wr = csv.writer(f)
             wr.writerows(collect_mousepos)
+
+        if sys.platform == "emscripten":
+            output = RequestHandler()
+            # Define the URL and data for the POST request
+            url = "http://127.0.0.1:5000/submit_trial"
+            writeheader = False
+            # Send the POST request
+            try:
+                message = "test"
+                message = await output.post(url, {
+                    "writeheader" : writeheader,
+                    "csvfile": csvfile,
+                    "Subnum": Subnum,
+                    "row": collect_mousepos  # `data` is your list of values (header or trial)
+                })
+                print(message)
+            except:
+                print("fail")
+                pass
 
     elapsed = time.time() - start
     mark_response = elapsed

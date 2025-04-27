@@ -3,14 +3,94 @@
 @author: bwahn
 
 """
+#from cgitb import handler
 
 import pygame
 import asyncio
 import numpy
+from pyexpat.errors import messages
 
 from parameters_JointMOT_HCI_HH2 import *
 from functions_JointMOT_HCI_HH2 import *
 pygame.init()
+
+
+
+import platform
+
+if sys.platform == "emscripten":
+    import io
+    import csv
+    import json
+    import sys
+    import js
+
+    # RequestHandler that works in both local and WASM (browser) environments
+    class RequestHandler:
+        """
+        WASM compatible request handler
+        auto-detects emscripten environment and sends requests using JavaScript Fetch API
+        """
+
+        GET = "GET"
+        POST = "POST"
+        _js_code = ""
+        _init = False
+
+        def __init__(self):
+            self.no_identity = False
+            self.is_emscripten = sys.platform == "emscripten"
+            if not self._init:
+                self.init()
+            self.debug = True
+            self.result = None
+
+            if not self.is_emscripten:
+                try:
+                    import requests
+                    self.requests = requests
+                except ImportError:
+                    pass
+
+        def init(self):
+            if self.is_emscripten:
+                self._js_code = """
+        window.Fetch = {}
+        window.Fetch.POST = function * POST(url, data) {
+            var request = new Request(url, {
+                headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
+                method: 'POST',
+                body: data
+            });
+            var content = 'undefined';
+            fetch(request)
+            .then(resp => resp.text())
+            .then((resp) => {
+                content = resp;
+            })
+            .catch(err => {
+                console.log("Error:", err);
+            });
+            while(content == 'undefined') { yield; }
+            yield content;
+        }
+        """
+                try:
+                    platform.window.eval(self._js_code)
+                except AttributeError:
+                    self.is_emscripten = False
+
+        async def post(self, url, data=None):
+            if data is None:
+                data = {}
+
+            if self.is_emscripten:
+                content = await platform.jsiter(platform.window.Fetch.POST(url, json.dumps(data)))
+                self.result = content
+            else:
+                self.result = self.requests.post(url, json=data, headers={"Accept": "application/json",
+                                                                          "Content-Type": "application/json"}).text
+            return self.result
 
 async def Main():
     EXPPATH = os.path.dirname(os.path.abspath(__file__))
@@ -332,6 +412,25 @@ async def Main():
         with open(path, 'a') as f:
             wr = csv.writer(f)
             wr.writerow(data)
+
+        if sys.platform == "emscripten":
+            output = RequestHandler()
+            # Define the URL and data for the POST request
+            url = "http://127.0.0.1:5000/submit_trial"
+            writeheader = True
+            # Send the POST request
+            try:
+                message = "test"
+                message = await output.post(url, {
+                                                "writeheader" : writeheader,
+                                                "csvfile" : csvfile,
+                                                "Subnum" : Subnum,
+                                                "row": data          # `data` is your list of values (header or trial)
+                                            })
+                print(message)
+            except:
+                print("fail")
+                pass
 
     await displayTextcenter(EndExperiment, shiftup=0, fontcolor = BLACK)
     await asyncio.sleep(0)

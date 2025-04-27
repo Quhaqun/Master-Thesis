@@ -1,0 +1,5 @@
+build/
+Data/
+sv_upload_local/Data
+.idea/
+__pycache__/
