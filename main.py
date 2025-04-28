@@ -416,7 +416,7 @@ async def Main():
         if sys.platform == "emscripten":
             output = RequestHandler()
             # Define the URL and data for the POST request
-            url = "http://127.0.0.1:5000/submit_trial"
+            url = "http://salzburg.kke.tu-berlin.de:5000/submit_trial"
             writeheader = True
             # Send the POST request
             try:

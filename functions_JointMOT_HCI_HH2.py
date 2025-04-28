@@ -318,7 +318,7 @@ async def MOT(objects, trial=999, Subnum=999, SUBDIR=999):
         if sys.platform == "emscripten":
             output = RequestHandler()
             # Define the URL and data for the POST request
-            url = "http://127.0.0.1:5000/submit_trial"
+            url = "http://salzburg.kke.tu-berlin.de:5000/submit_trial"
             writeheader = False
             # Send the POST request
             try:
@@ -443,7 +443,7 @@ async def markall(objects, selectionormark, Subnum, trial, SUBDIR, feedback=0):
         if sys.platform == "emscripten":
             output = RequestHandler()
             # Define the URL and data for the POST request
-            url = "http://127.0.0.1:5000/submit_trial"
+            url = "http://salzburg.kke.tu-berlin.de:5000/submit_trial"
             writeheader = False
             # Send the POST request
             try:
@@ -469,7 +469,7 @@ async def markall(objects, selectionormark, Subnum, trial, SUBDIR, feedback=0):
         if sys.platform == "emscripten":
             output = RequestHandler()
             # Define the URL and data for the POST request
-            url = "http://127.0.0.1:5000/submit_trial"
+            url = "http://salzburg.kke.tu-berlin.de:5000/submit_trial"
             writeheader = False
             # Send the POST request
             try:
