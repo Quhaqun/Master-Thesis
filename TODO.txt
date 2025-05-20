@@ -5,3 +5,13 @@
 - Masterarbeit Einleitung schreiben
 
 - Teste Daten übertragung ob überschrieben wird oder was es macht
+
+- 2 teil nach Auswahl wird nicht angezeigt was pc auswählt
+- und out of Bound der punkte 
+- ip adreese oder session id als verifzirung
+- und Sub session oder ip Adresse nehmen
+- am ende email Adresse eingeben um Amazon Gutschein Verlosung teilzunehmen
+- nur weiße punkte wählen können
+- daten in manuelen push in Google drive dann share mit basil
+- Handy teilnahme blockieren
+- Einleitung das online versuche ob in der bequemqn Umgebung es anders ausfällt

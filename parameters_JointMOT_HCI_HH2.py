@@ -30,7 +30,7 @@ timeperselection = 2.2 # based on earlier study
 # parameter Joint MOT
 # Condition parameters
 
-SHOWTEAMSCORE = True
+SHOWTEAMSCORE = False
 SHOWINDIVIDUALSCORES = False
 SHOWSELECTIONS = True
 EVALJOINTSELECTION = False
@@ -105,9 +105,9 @@ if TESTMODE:
     jointtrials = 2#40
 else:
     trainingsolotrials = 2
-    solotrials = 25
+    solotrials = 10
     trainingjointtrials = 2
-    jointtrials = 50
+    jointtrials = 20
 
 
 TRIALS = trainingsolotrials + solotrials + trainingjointtrials + jointtrials
