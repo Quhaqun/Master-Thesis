@@ -15,12 +15,24 @@ import numpy
 import csv
 import os
 import pickle
+import uuid
 import asyncio
 
+import parameters_JointMOT_HCI_HH2
 from parameters_JointMOT_HCI_HH2 import *
 pygame.init()
 
 import platform
+
+
+def get_session_id():
+    # Versuch, Session ID aus sessionStorage zu holen
+    session_id = js.window.sessionStorage.getItem("session_id")
+    if not session_id:
+        # Wenn keine ID da ist, neue erzeugen
+        session_id = str(uuid.uuid4())
+        js.window.sessionStorage.setItem("session_id", session_id)
+    return session_id
 
 if sys.platform == "emscripten":
     import io
@@ -150,6 +162,80 @@ async def displayTextcenter(textlist,shiftup, fontcolor = WHITE):
                     return another
                     break
         await asyncio.sleep(0)
+
+async def displayTextWithInputsReturnList(textlist, shiftup, fontcolor=WHITE, start_input_index=2, show_button=False):  # <-- NEU
+    basicfont = pygame.font.SysFont(None, FONTSIZE)
+    input_font = pygame.font.SysFont(None, FONTSIZE)
+    button_font = pygame.font.SysFont(None, FONTSIZE)
+    pygame.mouse.set_visible(1)
+
+    input_boxes = []
+    user_inputs = ['' for _ in textlist]
+    active_index = start_input_index
+
+    total_height = len(textlist) * (FONTSIZE + 40)
+    start_y = HEIGHT // 2 - total_height // 2 - shiftup
+
+    # Prepare label surfaces and input box rects
+    for i, text in enumerate(textlist):
+        label_surface = basicfont.render(text, True, fontcolor)
+        label_rect = label_surface.get_rect(center=(WIDTH // 2, start_y + i * 80))
+        input_rect = pygame.Rect(WIDTH // 2 - 150, label_rect.bottom, 300, 40) if i >= start_input_index else None
+        input_boxes.append((label_surface, label_rect, input_rect))
+
+    color_inactive = pygame.Color('gray')
+    color_active = pygame.Color('dodgerblue2')
+
+    # Button only if activated
+    if show_button:  # <-- NEU
+        button_text = button_font.render("Senden", True, WHITE)
+        button_rect = pygame.Rect(WIDTH // 2 - 75, start_y + len(textlist) * 80, 150, 50)
+        button_color = pygame.Color('green')
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_TAB:
+                    active_index = start_input_index + ((active_index - start_input_index + 1) % (len(textlist) - start_input_index))
+                elif event.key == pygame.K_RETURN:
+                    if not show_button:  # <-- NEU: Nur bei Enter beenden, wenn kein Button
+                        if active_index >= len(textlist) - 1:
+                            return user_inputs
+                        else:
+                            active_index += 1
+                            if active_index < start_input_index:
+                                active_index = start_input_index
+                elif event.key == pygame.K_BACKSPACE:
+                    if active_index >= start_input_index:
+                        user_inputs[active_index] = user_inputs[active_index][:-1]
+                else:
+                    if active_index >= start_input_index:
+                        user_inputs[active_index] += event.unicode
+
+            if show_button and event.type == pygame.MOUSEBUTTONDOWN:  # <-- NEU
+                if button_rect.collidepoint(event.pos):
+                    return user_inputs
+
+        SCREEN.fill(BGCOLOR)
+
+        for i, (label, label_rect, input_rect) in enumerate(input_boxes):
+            SCREEN.blit(label, label_rect)
+            if i >= start_input_index:
+                color = color_active if i == active_index else color_inactive
+                pygame.draw.rect(SCREEN, color, input_rect, 2)
+                text_surface = input_font.render(user_inputs[i], True, fontcolor)
+                SCREEN.blit(text_surface, (input_rect.x + 5, input_rect.y + 5))
+
+        if show_button:  # <-- NEU
+            pygame.draw.rect(SCREEN, button_color, button_rect)
+            text_rect = button_text.get_rect(center=button_rect.center)
+            SCREEN.blit(button_text, text_rect)
+
+        pygame.display.flip()
+        await asyncio.sleep(0.01)
 
 async def displayTextcenterWait(textlist,waitfor,shiftup, fontcolor = WHITE):
     basicfont = pygame.font.SysFont(None, FONTSIZE)
@@ -318,12 +404,11 @@ async def MOT(objects, trial=999, Subnum=999, SUBDIR=999):
         if sys.platform == "emscripten":
             output = RequestHandler()
             # Define the URL and data for the POST request
-            url = "http://salzburg.kke.tu-berlin.de:5000/submit_trial"
             writeheader = False
             # Send the POST request
             try:
                 message = "test"
-                message = await output.post(url, {
+                message = await output.post(parameters_JointMOT_HCI_HH2.URL_Server_TRIAL, {
                     "writeheader": writeheader,
                     "csvfile": csvfile,
                     "Subnum": Subnum,
@@ -396,14 +481,14 @@ async def markall(objects, selectionormark, Subnum, trial, SUBDIR, feedback=0):
                 for i,object in enumerate(objects):
                     objpos = (object.x,object.y)
                     check = collide_points(objpos,pos,OBJRADIUS)
-                    if check:
+                    if check and (selectionormark != "selection" or object.colour == WHITE):
                         selectedobj = selectedobj + 1
                         object.thickness = 0
                         checkcounter[i] += 1
                         if checkcounter[i] == 1:
                             object.colour = COLORME
                             selobjidx.append(i)
-                        elif checkcounter[i] == 2:
+                        elif checkcounter[i] == 2 :
                             object.colour = COLORME
                         elif checkcounter[i] == 3:
                             object.colour = COLORME
@@ -443,12 +528,11 @@ async def markall(objects, selectionormark, Subnum, trial, SUBDIR, feedback=0):
         if sys.platform == "emscripten":
             output = RequestHandler()
             # Define the URL and data for the POST request
-            url = "http://salzburg.kke.tu-berlin.de:5000/submit_trial"
             writeheader = False
             # Send the POST request
             try:
                 message = "test"
-                message = await output.post(url, {
+                message = await output.post(parameters_JointMOT_HCI_HH2.URL_Server_TRIAL, {
                     "writeheader" : writeheader,
                     "csvfile": csvfile,
                     "Subnum": Subnum,
@@ -469,12 +553,11 @@ async def markall(objects, selectionormark, Subnum, trial, SUBDIR, feedback=0):
         if sys.platform == "emscripten":
             output = RequestHandler()
             # Define the URL and data for the POST request
-            url = "http://salzburg.kke.tu-berlin.de:5000/submit_trial"
             writeheader = False
             # Send the POST request
             try:
                 message = "test"
-                message = await output.post(url, {
+                message = await output.post(parameters_JointMOT_HCI_HH2.URL_Server_TRIAL, {
                     "writeheader" : writeheader,
                     "csvfile": csvfile,
                     "Subnum": Subnum,

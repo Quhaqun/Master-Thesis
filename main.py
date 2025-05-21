@@ -8,8 +8,11 @@
 import pygame
 import asyncio
 import numpy
+import uuid
 from pyexpat.errors import messages
 
+
+import parameters_JointMOT_HCI_HH2
 from parameters_JointMOT_HCI_HH2 import *
 from functions_JointMOT_HCI_HH2 import *
 pygame.init()
@@ -24,6 +27,7 @@ if sys.platform == "emscripten":
     import json
     import sys
     import js
+    from js import navigator
 
     # RequestHandler that works in both local and WASM (browser) environments
     class RequestHandler:
@@ -93,12 +97,26 @@ if sys.platform == "emscripten":
             return self.result
 
 async def Main():
+    if sys.platform == "emscripten":
+        user_agent = navigator.userAgent
+
+        if "Mobi" in user_agent:
+            await displayTextcenter(smartphone_block, shiftup=0, fontcolor=BLACK)
+
+
+    if sys.platform == "emscripten":
+        parameters_JointMOT_HCI_HH2.SUB = get_session_id()
+        uuid_obj = uuid.UUID(get_session_id())
+
     EXPPATH = os.path.dirname(os.path.abspath(__file__))
-    SUBDIR = "%s/Data/Pair%s/" %(EXPPATH,SUB)
-    csvfile = "Pair%s.csv" % SUB
+    SUBDIR = "%s/Data/Pair%s/" %(EXPPATH,parameters_JointMOT_HCI_HH2.SUB)
+    csvfile = "Pair%s.csv" % parameters_JointMOT_HCI_HH2.SUB
     path = SUBDIR + csvfile
 
-    Subnum = int(SUB)
+    if sys.platform == "emscripten":
+        Subnum = uuid_obj.int
+    else:
+        Subnum = int(parameters_JointMOT_HCI_HH2.SUB)
 
     header = ['objx_0','objy_0','objx_1','objy_1','objx_2','objy_2','objx_3','objy_3','objx_4','objy_4',
     'objx_5','objy_5','objx_6','objy_6','objx_7','objy_7','objx_8','objy_8','objx_9','objy_9',
@@ -130,6 +148,8 @@ async def Main():
     if PARTNER == "Robot":
         send_request(0)
 
+    participant_info = await displayTextWithInputsReturnList(Info_Participant, shiftup=HEIGHT/4, fontcolor=BLACK)
+    _, _, parameters_JointMOT_HCI_HH2.AGE, parameters_JointMOT_HCI_HH2.GENDER, parameters_JointMOT_HCI_HH2.HANDEDNESS = participant_info
     await displayTextcenter(Introduction, shiftup=HEIGHT/4, fontcolor = BLACK)
     await displayTextcenter(Rights_Participant, shiftup=HEIGHT/3, fontcolor = BLACK)
 
@@ -237,10 +257,10 @@ async def Main():
                 object.colour = COLOROTHER
                 object.display()
             pygame.display.flip()
-            pygame.time.delay(2000)
+            await asyncio.sleep(2)
 
             if CONDITION == "JointTraining" or CONDITION == "Joint":
-                pygame.time.delay(5000)
+                await asyncio.sleep(5)
 
         for object in objects[0:NUMTAR]:
             object.thickness = 1
@@ -293,7 +313,7 @@ async def Main():
             if delaypartner > 0 and len(ai_assigned_targets) > 0:
                 delaycalc = int(round(1000 * delaypartner))
                 if CONDITION == "JointTraining" or CONDITION == "Joint":
-                    pygame.time.delay(delaycalc)
+                    await asyncio.sleep(delaycalc)
 
         if SHOWSELECTIONS == True:
             pygame.display.flip()
@@ -416,12 +436,11 @@ async def Main():
         if sys.platform == "emscripten":
             output = RequestHandler()
             # Define the URL and data for the POST request
-            url = "http://salzburg.kke.tu-berlin.de:5000/submit_trial"
+
             writeheader = True
             # Send the POST request
             try:
-                message = "test"
-                message = await output.post(url, {
+                message = await output.post(parameters_JointMOT_HCI_HH2.URL_Server_TRIAL, {
                                                 "writeheader" : writeheader,
                                                 "csvfile" : csvfile,
                                                 "Subnum" : Subnum,
@@ -432,7 +451,20 @@ async def Main():
                 print("fail")
                 pass
 
-    await displayTextcenter(EndExperiment, shiftup=0, fontcolor = BLACK)
+    _,_,_,_,participant_email = await displayTextWithInputsReturnList(EndExperiment, shiftup=0, fontcolor=BLACK, start_input_index=4, show_button=True)
+    print("email: " + participant_email)
+    if sys.platform == "emscripten":
+        output = RequestHandler()
+
+        # Send the POST request
+        try:
+            message = await output.post(parameters_JointMOT_HCI_HH2.URL_Server_EMAIL, {
+                "email": participant_email,
+            })
+            print(message)
+        except:
+            print("fail")
+            pass
     await asyncio.sleep(0)
     pygame.quit()
     sys.exit()

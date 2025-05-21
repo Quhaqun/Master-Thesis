@@ -16,6 +16,10 @@ SUB = "999" #input("Please enter participant number: ")
 AGE = "99" #input("Age of participant? (in years)")
 GENDER = "9" #input("Gender of participant? (f,m,o)")
 HANDEDNESS = "9" #input("Handedness? (l,r,a)")
+URL_Server_TRIAL = "http://localhost:5000/submit_trial"
+URL_Server_EMAIL = "http://localhost:5000/submit_email"
+#URL_Server_TRIAL = "http://salzburg.kke.tu-berlin.de:5000/submit_trial"
+#URL_Server_EMAIL = "http://salzburg.kke.tu-berlin.de:5000/submit_email"
 
 LOCALHOST = False
 GRO = True
@@ -144,6 +148,13 @@ if GRO == False:
 
 
 #SCREEN.fill(BGCOLOR)
+smartphone_block = ["Diese Anwendung funktioniert leider nicht auf Mobilgeräten.",
+                    "Bitte verwende einen Desktop-Browser für das Experiment."]
+Info_Participant = ["Teilnehmer Daten:",
+                     "Bitte geben Sie Ihre Daten ein und drücken Sie die Entertaste, um zur nächsten Eingabe zu gelangen.",
+                     "Alter",
+                     "Geschlecht (f (Frau), m (Mann), o (Andere))",
+                     "Händigkeit (l (links), r (rechts), a (Andere))"]
 
 Introduction = ["Einfuehrung:",
 "Dieses Experiment wird durchgefuehrt von der Ruhr-Universitaet Bochum.",
@@ -199,9 +210,13 @@ Announce_Solo_experiment = ["Nun startet das Experiment.",
 SoloEnd = ["Sie haben den ersten Teil des Experiments geschafft!",
 "Bitte kontaktieren Sie jetzt die Versuchsleitung."]
 
-EndExperiment = ["Das Experiment ist nun zuende.",
-"VIELEN DANK fuer Ihre Teilnahme!",
-"Bitte kontaktieren Sie die Versuchsleitung."]
+EndExperiment = [
+    "Das Experiment ist nun zuende.",
+    "VIELEN DANK fuer Ihre Teilnahme!",
+    "",
+    "Wenn Sie an der Verlosung eines Amazon-Gutscheins teilnehmen möchten,",
+    "geben Sie bitte unten Ihre E-Mail-Adresse ein und drücken Sie auf Senden:"
+]
 
 Announce_Joint_training = ["Es folgen nun ein paar Trainingsdurchlaeufe,",
 "bei denen Ihnen die Versuchsleitung Ihre Aufgabe erklaert.",

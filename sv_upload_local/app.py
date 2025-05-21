@@ -65,6 +65,32 @@ def submit_trial():
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 
+@app.route('/submit_email', methods=['POST'])
+def submit_email():
+    try:
+        data = request.get_json()
+        email = data.get("email")
+
+        if not email:
+            return jsonify({"status": "error", "message": "No email provided"}), 400
+
+        EXPPATH = os.path.dirname(os.path.abspath(__file__))
+        email_file = os.path.join(EXPPATH, "Data/emails.csv")
+
+        # Falls Datei neu: Header schreiben
+        write_header = not os.path.exists(email_file)
+
+        with open(email_file, 'a', newline='') as f:
+            writer = csv.writer(f)
+            if write_header:
+                writer.writerow(["email"])
+            writer.writerow([email])
+
+        return jsonify({"status": "ok", "message": "Email saved successfully!"})
+
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
