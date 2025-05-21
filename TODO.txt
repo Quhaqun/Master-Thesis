@@ -3,12 +3,12 @@
 - Teste Daten übertragung ob überschrieben wird oder was es macht x
 - 2 teil nach Auswahl wird nicht angezeigt was pc auswählt x
 - ip adreese oder session id als verifzirung x
-- und Sub session oder ip Adresse nehmen x
+- und Sub session id nehmen  bleibt solange der browser nicht geschlossen wird gleichx
 - am ende email Adresse eingeben um Amazon Gutschein Verlosung teilzunehmen x
 - nur weiße punkte wählen können x
 - Handy teilnahme blockieren x
+- und out of Bound der punkte (problem nicht gefunden )
 
-- und out of Bound der punkte 
 - daten in manuelen push in Google drive dann share mit basil
 - Masterarbeit Einleitung schreiben
 - Einleitung das online versuche ob in der bequemqn Umgebung es anders ausfällt

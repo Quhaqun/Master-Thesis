@@ -16,10 +16,10 @@ SUB = "999" #input("Please enter participant number: ")
 AGE = "99" #input("Age of participant? (in years)")
 GENDER = "9" #input("Gender of participant? (f,m,o)")
 HANDEDNESS = "9" #input("Handedness? (l,r,a)")
-URL_Server_TRIAL = "http://localhost:5000/submit_trial"
-URL_Server_EMAIL = "http://localhost:5000/submit_email"
-#URL_Server_TRIAL = "http://salzburg.kke.tu-berlin.de:5000/submit_trial"
-#URL_Server_EMAIL = "http://salzburg.kke.tu-berlin.de:5000/submit_email"
+#URL_Server_TRIAL = "http://localhost:5000/submit_trial"
+#URL_Server_EMAIL = "http://localhost:5000/submit_email"
+URL_Server_TRIAL = "http://salzburg.kke.tu-berlin.de:5000/submit_trial"
+URL_Server_EMAIL = "http://salzburg.kke.tu-berlin.de:5000/submit_email"
 
 LOCALHOST = False
 GRO = True

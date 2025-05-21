@@ -1,4 +1,17 @@
-cd Master-Thesis/build/web
-sudo setsid http-server -p 80 -a 0.0.0.0 -c-1 --index index.html > server.log 2>&1 &
-ps aux | grep http-server 
-sudo kill xxxxxx
+steps for http:
+0. if http is running kill the running process with sudo kill xxxxxx
+1. go to folder with the main.py example: cd Master-Thesis 
+2. open virtual envierment where everything is installed example: source venv/bin/activate
+3. now the the command: pygbag main.py
+4. now cancel the running http with ctrl c (we did step 3 to build the http)
+5. got to the build web example: cd Master-Thesis/build/web
+6. sudo setsid http-server -p 80 -a 0.0.0.0 -c-1 --index index.html > server.log 2>&1 &
+7. ps aux | grep http-server 
+8. check if process is created
+
+steps for flak server:
+1. go to folder with the app.py example: cd Master-Thesis/sv_upload_local
+2. open python virtual envierment where everything is installed example: source venv/bin/activate
+3. sudo setsid /home/debian/Master-Thesis/venv/bin/gunicorn -w 4 -b 0.0.0.0:5000 app:app > flask_server.log 2>&1 &
+4. ps aux | grep app 
+5. check if process is created
