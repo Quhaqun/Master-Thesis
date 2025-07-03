@@ -133,7 +133,7 @@ async def Main():
     'selobjother1','selobjother2','selobjother3','selobjother4','selobjother5','selobjother6',
     'selobjother7','selobjother8','selobjother9','selobjother10','selobjother11','selobjother12',
     'selobjother13','selobjother14','selobjother15','selobjother16','selobjother17','selobjother18',
-    'selobjother19','Selectiontime','ReactiontimeSelection','ReactiontimeMarkall']
+    'selobjother19','Selectiontime','ReactiontimeSelection','ReactiontimeMarkall','Resolution', 'AverageSpeed']
 
     #check if subject folder exists, if not make it:
     if not os.path.exists(SUBDIR):
@@ -152,6 +152,7 @@ async def Main():
     _, _, parameters_JointMOT_HCI_HH2.AGE, parameters_JointMOT_HCI_HH2.GENDER, parameters_JointMOT_HCI_HH2.HANDEDNESS = participant_info
     await displayTextcenter(Introduction, shiftup=HEIGHT/4, fontcolor = BLACK)
     await displayTextcenter(Rights_Participant, shiftup=HEIGHT/3, fontcolor = BLACK)
+    await displayTextcenter(Instruction_to_concentrate, shiftup=HEIGHT / 3, fontcolor=BLACK)
 
     for trial in range(0,TRIALS):
 
@@ -429,6 +430,17 @@ async def Main():
         data.append(ReactiontimeSelection)
         data.append(ReactiontimeMarkall)
 
+        if sys.platform == "emscripten":
+            import js
+            RESOLUTION = f"{js.window.innerWidth}x{js.window.innerHeight}"
+        else:
+            RESOLUTION = f"{WIDTH}x{HEIGHT}"
+
+        data.append(RESOLUTION)
+
+        average_speed = sum(obj.speed for obj in objects) / len(objects)
+        data.append(average_speed)
+
         with open(path, 'a') as f:
             wr = csv.writer(f)
             wr.writerow(data)
@@ -466,6 +478,7 @@ async def Main():
             print("fail")
             pass
     await asyncio.sleep(0)
+    await displayTextcenter(EndExperiment_last, shiftup=HEIGHT / 8, fontcolor=BLACK)
     pygame.quit()
     sys.exit()
 

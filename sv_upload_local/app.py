@@ -24,7 +24,7 @@ def submit_trial():
               'selobjother1', 'selobjother2', 'selobjother3', 'selobjother4', 'selobjother5', 'selobjother6',
               'selobjother7', 'selobjother8', 'selobjother9', 'selobjother10', 'selobjother11', 'selobjother12',
               'selobjother13', 'selobjother14', 'selobjother15', 'selobjother16', 'selobjother17', 'selobjother18',
-              'selobjother19', 'Selectiontime', 'ReactiontimeSelection', 'ReactiontimeMarkall']
+              'selobjother19', 'Selectiontime', 'ReactiontimeSelection', 'ReactiontimeMarkall', 'Resolution', 'AverageSpeed']
 
     try:
         # Get list data directly

@@ -505,6 +505,10 @@ async def markall(objects, selectionormark, Subnum, trial, SUBDIR, feedback=0):
                                 notcorsel += 1
                                 if NUMTAR == notcorsel:
                                     selwrong_objidx.append(i)
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    notselected = 0
+                    break
         await asyncio.sleep(0)
 
     if feedback == 1:

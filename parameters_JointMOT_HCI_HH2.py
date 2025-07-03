@@ -157,7 +157,7 @@ Info_Participant = ["Teilnehmer Daten:",
                      "Händigkeit (l (links), r (rechts), a (Andere))"]
 
 Introduction = ["Einfuehrung:",
-"Dieses Experiment wird durchgefuehrt von der Ruhr-Universitaet Bochum.",
+"Dieses Experiment wird durchgefuehrt von der Technischen Universitaet Berlin.",
 "Das Experiment dient der Erforschung von Wahrnehmungsprozessen beim Menschen.",
 "",
 "Ablauf:",
@@ -187,6 +187,14 @@ Rights_Participant = ["Ihre Rechte als Versuchsperson:",
 "Wenn Sie die vorausgehenden Informationen zur Kenntnis genommen haben und am",
 "Experiment teilnehmen moechten, druecken Sie bitte die Leertaste."]
 
+Instruction_to_concentrate = ["Während du diese Aufgabe ausführst, ist es wichtig, dass du ...",
+                              "",
+                              "1) ... immer auf den Bildschirm SCHAUST.",
+                              "  -> Bitte stelle sicher, dass alle Ablenkungen ausgeschaltet sind (z. B. Musik, Fernseher, Handy).",
+                              "",
+                              "2) ... dich auf die Aufgabe KONZENTRIERST.",
+                              "  -> Bitte führe gleichzeitig keine anderen Tätigkeiten aus."]
+
 Instruction_Text_Solo = ["Es folgen nun ein paar Trainingsdurchlaeufe,",
 "bei denen Ihnen die Versuchsleitung Ihre Aufgabe erklaert.",
 "Um fortzufahren, druecken Sie bitte die Leertaste."]
@@ -195,20 +203,20 @@ Announce_Solo_Training = ["Um die Trainingsdurchlaeufe zu starten, druecken Sie 
 
 Announce_Solo_experiment = ["Nun startet das Experiment.",
 "",
-"Waehlen Sie zunaechst die Punkte (0-6) aus, die Sie verfolgen moechten.",
+"Waehlen Sie zunaechst die Punkte (0-6) mit der Maus aus, die Sie verfolgen moechten",
+"und bestätigen Sie bitte Ihre Auswahl mit der Leertaste.",
 "Verfolgen Sie dann diese Punkte waehrend sie sich bewegen.",
 "Sobald alle Punkte zum Stillstand kommen, identifizieren Sie die von Ihnen zuvor ausgewaehlten Punkte.",
-"Waehlen Sie dabei nur diejenigen Punkte aus, bei denen Sie sich sicher sind.",
+"Waehlen Sie dabei nur diejenigen Punkte mit der Maus aus, bei denen Sie sich sicher sind",
+"und bestätigen Sie bitte wieder Ihre Auswahl mit der Leertaste.",
 "Ihr Ziel ist es, in jedem Durchgang möglichst viele Punkte korrekt zu identifizieren.",
 "Die korrekt identifizierten Punkte ergeben Ihren individuellen Score.",
 "Achtung: Jede inkorrekte Auswahl fuehrt zu Minuspunkten.",
 "",
-"Falls Sie jetzt noch eine Frage haben, wenden Sie sich sich bitte an die Versuchsleitung.",
-"",
 "Um fortzufahren, druecken Sie bitte die Leertaste."]
 
 SoloEnd = ["Sie haben den ersten Teil des Experiments geschafft!",
-"Bitte kontaktieren Sie jetzt die Versuchsleitung."]
+"Um fortzufahren, druecken Sie bitte die Leertaste."]
 
 EndExperiment = [
     "Das Experiment ist nun zuende.",
@@ -218,48 +226,13 @@ EndExperiment = [
     "geben Sie bitte unten Ihre E-Mail-Adresse ein und drücken Sie auf Senden:"
 ]
 
-Announce_Joint_training = ["Es folgen nun ein paar Trainingsdurchlaeufe,",
-"bei denen Ihnen die Versuchsleitung Ihre Aufgabe erklaert.",
+EndExperiment_last = [
+    "Das Experiment ist nun zuende.",
+    "VIELEN DANK fuer Ihre Teilnahme!",
+    "Die Seite kann jetzt geschlossen werden."]
+
+Announce_Joint_training = ["Es folgen nun ein paar Trainingsdurchlaeufe.",
 "Um fortzufahren, druecken Sie bitte die Leertaste."]
-
-
-if PARTNER == "Confederate":
-    Instruction_Text_Joint = ["Im zweiten Teil des Experiments werden Sie die gleiche Aufgabe durchfuehren",
-    "wie zuvor, jedoch nicht allein, sondern gemeinsam mit einer anderen Person.",
-    "",
-    "Wichtig: Sie bestimmen die Aufgabenteilung zwischen Ihnen und der anderen Person.",
-    "D.h. Sie koennen frei entscheiden, wie viele Punkte Sie verfolgen",
-    "und wie viele die Person verfolgt. Anders gesagt:",
-    "Sie koennen entscheiden, wie viel Verantwortung fuer die Aufgabe Sie selbst uebernehmen",
-    "und wie viel Sie der anderen Person anvertrauen.",
-    "",
-    "Waehlen Sie zunaechst Ihre Punkte (0-6) aus. Die uebrigen Punkte uebernimmt die andere Person.",
-    "Verfolgen Sie dann Ihre Punkte waehrend sie sich bewegen.",
-    "Sobald alle Punkte zum Stillstand kommen, identifizieren Sie Ihre Punkte.",
-    "Waehlen Sie dabei nur diejenigen Punkte aus, bei denen Sie sich sicher sind.",
-    "Nachdem Sie Ihre Auswahl abgeschlossen haben, wird Ihnen die Auswahl der anderen Person gezeigt.",
-    "Da die andere Person vielleicht laenger benötigt als Sie die Punkte auszuwählen, kann es hier zu",
-    "Verzögerungen kommen bis Ihnen die Auswahl der anderen Person gezeigt wird."
-    "",
-    "Gemeinsam mit der anderen Person verfolgen Sie das Ziel, in jedem Durchgang möglichst viele Punkte korrekt zu identifizieren.",
-    "Die korrekt identifizierten Punkte von Ihnen und der Person werden zu einem gemeinsamen Score zusammengezaehlt.",
-    "Jede inkorrekte Auswahl fuehrt zu Minuspunkten.",
-    "",
-    "Um fortzufahren, druecken Sie bitte die Leertaste."]
-
-    Connectingpartner = ["Verbinde andere Person mit Experiment ... bitte warten."]
-
-    Connectingpartner_success = ["Verbindung erfolgreich!",
-    "",
-    "Um fortzufahren, druecken Sie bitte die Leertaste."]
-
-    Announce_Joint_experiment = ["Nun startet der zweite Teil des Experiments.",
-    "Waehlen Sie zunaechst Ihre Punkte (0-6) aus. Die uebrigen Punkte uebernimmt die anderen Person.",
-    "Ihr gemeinsames Ziel ist es, in jedem Durchgang möglichst viele Punkte korrekt zu identifizieren.",
-    "",
-    "Falls Sie jetzt noch eine Frage haben, wenden Sie sich sich bitte an die Versuchsleitung.",
-    "",
-    "Um fortzufahren, druecken Sie bitte die Leertaste."]
 
 
 if PARTNER == "Computer" and SHOWTEAMSCORE == False:
@@ -272,10 +245,13 @@ if PARTNER == "Computer" and SHOWTEAMSCORE == False:
     "Sie koennen entscheiden, wie viel Verantwortung fuer die Aufgabe Sie selbst uebernehmen",
     "und wie viel Sie dem Computer anvertrauen.",
     "",
-    "Waehlen Sie zunaechst Ihre Punkte (0-6) aus. Die uebrigen Punkte uebernimmt der Computer.",
+    "Waehlen Sie zunaechst Ihre Punkte mit der Maus (0-6) aus und bestätigen Sie Ihre Auswahl mit der Leertaste.",
+    "Die uebrigen Punkte uebernimmt der Computer. Die vom Computer übernommenen Punkte werden eingeblendet.",
+    "Um fortzufahren drücken Sie bitte die Leertaste",
     "Verfolgen Sie dann Ihre Punkte waehrend sie sich bewegen.",
     "Sobald alle Punkte zum Stillstand kommen, identifizieren Sie Ihre Punkte.",
-    "Waehlen Sie dabei nur diejenigen Punkte aus, bei denen Sie sich sicher sind.",
+    "Waehlen Sie dabei nur diejenigen Punkte mit der Maus aus, bei denen Sie sich sicher sind.",
+    "Bitte bestaetigen Sie Ihre Auswahl wieder mit der Leertaste.",
     "Nachdem Sie Ihre Auswahl abgeschlossen haben, waehlt der Computer seine Punkte aus.",
     "",
     "Gemeinsam mit dem Computer verfolgen Sie das Ziel in jedem Durchgang möglichst viele Punkte korrekt zu identifizieren.",
@@ -288,73 +264,7 @@ if PARTNER == "Computer" and SHOWTEAMSCORE == False:
     "Waehlen Sie zunaechst Ihre Punkte (0-6) aus. Die uebrigen Punkte uebernimmt der Computer.",
     "Ihr gemeinsames Ziel ist es, in jedem Durchgang möglichst viele Punkte korrekt zu identifizieren.",
     "",
-    "Falls Sie jetzt noch eine Frage haben, wenden Sie sich sich bitte an die Versuchsleitung.",
-    "",
     "Um fortzufahren, druecken Sie bitte die Leertaste."]
-
-if PARTNER == "Computer" and SHOWTEAMSCORE == True:
-    Instruction_Text_Joint = ["Im zweiten Teil des Experiments werden Sie die gleiche Aufgabe durchfuehren",
-    "wie zuvor, jedoch nicht allein, sondern gemeinsam mit einem Computerpartner.",
-    "",
-    "Wichtig: Sie bestimmen die Aufgabenteilung zwischen Ihnen und dem Computer.",
-    "D.h. Sie koennen frei entscheiden, wie viele Punkte Sie verfolgen",
-    "und wie viele der Computer verfolgt. Anders gesagt:",
-    "Sie koennen entscheiden, wie viel Verantwortung fuer die Aufgabe Sie selbst uebernehmen",
-    "und wie viel Sie dem Computer anvertrauen.",
-    "",
-    "Waehlen Sie zunaechst Ihre Punkte (0-6) aus. Die uebrigen Punkte uebernimmt der Computer.",
-    "Verfolgen Sie dann Ihre Punkte waehrend sie sich bewegen.",
-    "Sobald alle Punkte zum Stillstand kommen, identifizieren Sie Ihre Punkte.",
-    "Waehlen Sie dabei nur diejenigen Punkte aus, bei denen Sie sich sicher sind.",
-    "Nachdem Sie Ihre Auswahl abgeschlossen haben, waehlt der Computer seine Punkte aus.",
-    "",
-    "Gemeinsam mit dem Computer verfolgen Sie das Ziel in jedem Durchgang möglichst viele Punkte korrekt zu identifizieren.",
-    "Die korrekt identifizierten Punkte von Ihnen und dem Computer werden zu einem gemeinsamen Score zusammengezaehlt."
-    "Jede inkorrekte Auswahl fuehrt zu Minuspunkten.",
-    "Nachdem Sie die Auswahl der Computers gezeigt wurde und Sie mit der Leertaste fortfahren,",
-    "sehen sie einen gemeinsamen Team Score, der einzeigt wie viele Punkte sie gemeinsam korrekt haben.",
-    ""
-    "Um fortzufahren, druecken Sie bitte die Leertaste."]
-
-    Announce_Joint_experiment = ["Nun startet der zweite Teil des Experiments.",
-    "Waehlen Sie zunaechst Ihre Punkte (0-6) aus. Die uebrigen Punkte uebernimmt der Computer.",
-    "Ihr gemeinsames Ziel ist es, in jedem Durchgang möglichst viele Punkte korrekt zu identifizieren.",
-    "",
-    "Falls Sie jetzt noch eine Frage haben, wenden Sie sich sich bitte an die Versuchsleitung.",
-    "",
-    "Um fortzufahren, druecken Sie bitte die Leertaste."]
-
-
-if PARTNER == "Roboter":
-    Instruction_Text_Joint = ["Im zweiten Teil des Experiments werden Sie die gleiche Aufgabe durchfuehren",
-    "wie zuvor, jedoch nicht allein, sondern gemeinsam mit einem Roboter.",
-    "",
-    "Wichtig: Sie bestimmen die Aufgabenteilung zwischen Ihnen und dem Roboter.",
-    "D.h. Sie koennen frei entscheiden, wie viele Punkte Sie verfolgen",
-    "und wie viele der Roboter verfolgt. Anders gesagt:",
-    "Sie koennen entscheiden, wie viel Verantwortung fuer die Aufgabe Sie selbst uebernehmen",
-    "und wie viel Sie dem Roboter anvertrauen.",
-    "",
-    "Waehlen Sie zunaechst Ihre Punkte (0-6) aus. Die uebrigen Punkte uebernimmt der Roboter.",
-    "Verfolgen Sie dann Ihre Punkte waehrend sie sich bewegen.",
-    "Sobald alle Punkte zum Stillstand kommen, identifizieren Sie Ihre Punkte.",
-    "Waehlen Sie dabei nur diejenigen Punkte aus, bei denen Sie sich sicher sind.",
-    "Nachdem Sie Ihre Auswahl abgeschlossen haben, waehlt der Roboter seine Punkte aus.",
-    "",
-    "Gemeinsam mit dem Roboter verfolgen Sie das Ziel in jedem Durchgang möglichst viele Punkte korrekt zu identifizieren.",
-    "Die korrekt identifizierten Punkte von Ihnen und dem Roboter werden zu einem gemeinsamen Score zusammengezaehlt."
-    "Jede inkorrekte Auswahl fuehrt zu Minuspunkten.",
-    "",
-    "Um fortzufahren, druecken Sie bitte die Leertaste."]
-
-    Announce_Joint_experiment = ["Nun startet der zweite Teil des Experiments.",
-    "Waehlen Sie zunaechst Ihre Punkte (0-6) aus. Die uebrigen Punkte uebernimmt der Roboter.",
-    "Ihr gemeinsames Ziel ist es, in jedem Durchgang möglichst viele Punkte korrekt zu identifizieren.",
-    "",
-    "Falls Sie jetzt noch eine Frage haben, wenden Sie sich sich bitte an die Versuchsleitung.",
-    "",
-    "Um fortzufahren, druecken Sie bitte die Leertaste."]
-
 
 
 
