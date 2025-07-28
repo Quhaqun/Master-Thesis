@@ -25,7 +25,7 @@ LOCALHOST = False
 GRO = True
 FULLSCREEN = 0
 
-TESTMODE = True
+TESTMODE = False
 
 # partner parameters
 waitforconnect = 3000
@@ -171,8 +171,7 @@ Introduction = ["Einfuehrung:",
 
 Rights_Participant = ["Ihre Rechte als Versuchsperson:",
 "Die Teilnahme an diesem Experiment ist freiwillig. Sie können das Experiment",
-"jederzeit ohne Angabe von Gründen abbrechen. Kontaktieren Sie in diesem Fall die",
-"Versuchsleitung.",
+"jederzeit ohne Angabe von Gründen abbrechen. Schliessen Sie hierfuer einfach das Fenster.",
 "",
 "Datenspeicherung:",
 "Es wird aufgezeichnet, welche Tasten auf der Tastatur Sie wann drücken und wie",
@@ -182,7 +181,7 @@ Rights_Participant = ["Ihre Rechte als Versuchsperson:",
 "Zugriff hat nur der verantwortliche Leiter des Experiments.",
 "",
 "Fragen?",
-"Falls Sie Fragen oder Anmerkungen haben, wenden Sie sich bitte an die Versuchsleitung.",
+"Falls Sie Fragen oder Anmerkungen haben, wenden Sie sich bitte an die abu-shawish@campus.tu-berlin.de",
 "",
 "Wenn Sie die vorausgehenden Informationen zur Kenntnis genommen haben und am",
 "Experiment teilnehmen moechten, druecken Sie bitte die Leertaste."]
@@ -195,14 +194,24 @@ Instruction_to_concentrate = ["Während du diese Aufgabe ausführst, ist es wich
                               "2) ... dich auf die Aufgabe KONZENTRIERST.",
                               "  -> Bitte führe gleichzeitig keine anderen Tätigkeiten aus."]
 
-Instruction_Text_Solo = ["Es folgen nun ein paar Trainingsdurchlaeufe,",
-"bei denen Ihnen die Versuchsleitung Ihre Aufgabe erklaert.",
+Instruction_Text_Solo = ["Aufgabenbeschreibung Objektverfolgungsaufgabe:",
+"",
+"Waehlen Sie zunaechst die Punkte (0-6) mit der Maus aus, die Sie verfolgen moechten",
+"und bestätigen Sie bitte Ihre Auswahl mit der Leertaste.",
+"Verfolgen Sie dann diese Punkte waehrend sie sich bewegen.",
+"Sobald alle Punkte zum Stillstand kommen, identifizieren Sie die von Ihnen zuvor ausgewaehlten Punkte.",
+"Waehlen Sie dabei nur diejenigen Punkte mit der Maus aus, bei denen Sie sich sicher sind",
+"und bestätigen Sie bitte wieder Ihre Auswahl mit der Leertaste.",
+"Ihr Ziel ist es, in jedem Durchgang möglichst viele Punkte korrekt zu identifizieren.",
+"Die korrekt identifizierten Punkte ergeben Ihren individuellen Score.",
+"Achtung: Jede inkorrekte Auswahl fuehrt zu Minuspunkten.",
+"Es folgen nun ein paar Trainingsdurchlaeufe.",
 "Um fortzufahren, druecken Sie bitte die Leertaste."]
 
 Announce_Solo_Training = ["Um die Trainingsdurchlaeufe zu starten, druecken Sie bitte die Leertaste."]
 
 Announce_Solo_experiment = ["Nun startet das Experiment.",
-"",
+"Zur Erinnerung:",
 "Waehlen Sie zunaechst die Punkte (0-6) mit der Maus aus, die Sie verfolgen moechten",
 "und bestätigen Sie bitte Ihre Auswahl mit der Leertaste.",
 "Verfolgen Sie dann diese Punkte waehrend sie sich bewegen.",
@@ -232,7 +241,7 @@ EndExperiment_last = [
     "Die Seite kann jetzt geschlossen werden."]
 
 Announce_Joint_training = ["Es folgen nun ein paar Trainingsdurchlaeufe.",
-"Um fortzufahren, druecken Sie bitte die Leertaste."]
+    "Um fortzufahren, druecken Sie bitte die Leertaste."]
 
 
 if PARTNER == "Computer" and SHOWTEAMSCORE == False:
@@ -253,7 +262,7 @@ if PARTNER == "Computer" and SHOWTEAMSCORE == False:
     "Waehlen Sie dabei nur diejenigen Punkte mit der Maus aus, bei denen Sie sich sicher sind.",
     "Bitte bestaetigen Sie Ihre Auswahl wieder mit der Leertaste.",
     "Nachdem Sie Ihre Auswahl abgeschlossen haben, waehlt der Computer seine Punkte aus.",
-    "",
+    "Diese werden ebenfalls eingeblendet.",
     "Gemeinsam mit dem Computer verfolgen Sie das Ziel in jedem Durchgang möglichst viele Punkte korrekt zu identifizieren.",
     "Die korrekt identifizierten Punkte von Ihnen und dem Computer werden zu einem gemeinsamen Score zusammengezaehlt."
     "Jede inkorrekte Auswahl fuehrt zu Minuspunkten.",
