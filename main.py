@@ -147,7 +147,6 @@ async def Main():
     # XXX MAKI look straight?
     if PARTNER == "Robot":
         send_request(0)
-
     participant_info = await displayTextWithInputsReturnList(Info_Participant, shiftup=HEIGHT/4, fontcolor=BLACK)
     _, _, parameters_JointMOT_HCI_HH2.AGE, parameters_JointMOT_HCI_HH2.GENDER, parameters_JointMOT_HCI_HH2.HANDEDNESS = participant_info
     await displayTextcenter(Introduction, shiftup=HEIGHT/4, fontcolor = BLACK)
@@ -406,9 +405,9 @@ async def Main():
         data.append(doublesel)
 
         data.append(mark_rt)
-        data.append(AGE)
-        data.append(GENDER)
-        data.append(HANDEDNESS)
+        data.append(parameters_JointMOT_HCI_HH2.AGE)
+        data.append(parameters_JointMOT_HCI_HH2.GENDER)
+        data.append(parameters_JointMOT_HCI_HH2.HANDEDNESS)
         data.append(CONDITION)
         data.append(EXPCHOICE)
 
